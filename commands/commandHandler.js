@@ -1,7 +1,5 @@
-
-import { contactService } from './services/contactService.js';
-import { validateName, validateEmail, validatePhone, validateEmailOrPhone } from './utils/validation.js';
-
+const { contactService } = require('./services/contactService.js');
+const { validateName, validateEmail, validatePhone, validateEmailOrName } = require('./utils/validation.js')
 
 function commandHandler(command, args){
     try{
@@ -12,8 +10,8 @@ function commandHandler(command, args){
                 break
                 }
             case 'search': {
-                if (args) contactService.search(validateEmailOrPhone(args))
-                else throw new Error('✗ Error: Missing email/phone number for search command \nUsage: node contacts.js search  "email" / "phone"')
+                if (args) contactService.search(validateEmailOrName(args))
+                else throw new Error('✗ Error: Missing email/phone number for search command \nUsage: node contacts.js search  "email" / "name"')
                 break
                 }
             case 'delete': {
@@ -52,4 +50,4 @@ Examples:
 `);
 }
 
-export {commandHandler}
+module.exports = { commandHandler }

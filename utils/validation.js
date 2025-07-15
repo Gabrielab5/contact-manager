@@ -9,12 +9,12 @@ function validateEmail(email){
 }
 
 function validatePhone(phone){
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(phone)) return phone
+    if (/^\d{3}-\d{3}-\d{4}$/.test(phone)) return phone
     else throw new Error("✗ Error: Phone number isn't valid. try again.")
 }
 
-function validateEmailOrPhone(input){
-    validatedInput = validateEmail(input) || validatePhone(input)
+function validateEmailOrName(input){
+    validatedInput = validateEmail(input) || validateName(input)
     if (validatedInput) return validatedInput
     else throw new Error("✗ Error: Search contacts by name or email only. name or email arent valid")
 }
@@ -23,5 +23,5 @@ export default {
     validateName,
     validateEmail,
     validatePhone,
-    validateEmailOrPhone
+    validateEmailOrName
 }
