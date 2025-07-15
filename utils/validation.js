@@ -1,5 +1,5 @@
 function validateName(name){
-   if (/^[a-zA-Z]+$/.test(name)) return name
+   if (/ (?: [a-zA-Z]+)*/.test(name)) return name
    else throw new Error("Name isn't valid. try again.")
 }
 

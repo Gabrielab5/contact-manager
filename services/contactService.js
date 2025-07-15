@@ -3,6 +3,7 @@ const { readContactsFromFileSync, writeContactsToFileSync } = require('../utils/
 const CONTACTS_FILE = 'contacts.json';
 
 function loadContacts() {
+  console.log("Loading contacts from contacts.json...")
   try {
     const contacts = readContactsFromFileSync(CONTACTS_FILE);
     console.log(`✓ Loaded ${contacts.length} contacts`);
@@ -20,7 +21,7 @@ function loadContacts() {
 
 function saveContacts(contacts) {
   try {
-    writeContactsToFileSync(CONTACTS_FILE, contacts);
+    writeContactsToFileSync(contacts, CONTACTS_FILE);
     console.log('✓ Contacts saved to contacts.json');
   } catch (err) {
     console.error('✗ Failed to save contacts:', err.message);
