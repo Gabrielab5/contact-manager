@@ -4,7 +4,7 @@ const { validateName, validateEmail, validatePhone, validateEmailOrPhone } = req
 jest.mock('./services/contactService.js');
 jest.mock('./utils/validation.js');
 
-describe('commandHandler', () => {
+describe('commandHandler - tests', () => {
     let consoleLogSpy;
     beforeEach(() => {
         jest.clearAllMocks();

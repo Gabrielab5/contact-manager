@@ -5,21 +5,21 @@ function commandHandler(command, args){
     try{
         switch(command){
             case 'add': {
-                if (args[0] && args[1] && args[2]) contactService.add(validateName(args[0]), validateEmail(args[1]), validatePhone(args[2]))
+                if (args[0] && args[1] && args[2]) contactService.addContact(validateName(args[0]), validateEmail(args[1]), validatePhone(args[2]))
                 else throw new Error('✗ Error: Missing arguments for add command \nUsage: node contacts.js add "name" "email" "phone"')
                 break
                 }
             case 'search': {
-                if (args) contactService.search(validateEmailOrName(args))
+                if (args) contactService.searchContact(validateEmailOrName(args))
                 else throw new Error('✗ Error: Missing email/phone number for search command \nUsage: node contacts.js search  "email" / "name"')
                 break
                 }
             case 'delete': {
-                if (args) contactService.delete(validateEmail(args))
+                if (args) contactService.deleteContact(validateEmail(args))
                 else throw new Error('✗ Error: Missing email for delete command \nUsage: node contacts.js delete "email"')
                 break
                 }
-            case 'list': contactService.list()
+            case 'list': contactService.listContacts()
                 break
             case 'help': help()
                 break
@@ -50,4 +50,4 @@ Examples:
 `);
 }
 
-module.exports = { commandHandler }
+export default { commandHandler }

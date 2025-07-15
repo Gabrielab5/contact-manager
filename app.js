@@ -1,4 +1,4 @@
-import {commandHandler} from './commands/commandHandler.js'
+const { commandHandler } = require('./commandHandler.js')
 
 const userArgs = process.argv.slice(2);
 

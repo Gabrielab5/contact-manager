@@ -14,9 +14,15 @@ function validatePhone(phone){
 }
 
 function validateEmailOrName(input){
-    validatedInput = validateEmail(input) || validateName(input)
-    if (validatedInput) return validatedInput
-    else throw new Error("✗ Error: Search contacts by name or email only. name or email arent valid")
+    try{
+        return validateName(input)
+    } catch(nameError){}
+
+    try { 
+        return validateEmail(input) 
+    }catch(emailError){}
+
+    throw new Error("✗ Error: Search contacts by name or email only. name or email aren't valid")
 }
 
 export default {
