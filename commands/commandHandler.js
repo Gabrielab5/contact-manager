@@ -1,5 +1,5 @@
-const { contactService } = require('./services/contactService.js');
-const { validateName, validateEmail, validatePhone, validateEmailOrName } = require('./utils/validation.js')
+const { contactService } = require('../services/contactService.js')
+const { validateName, validateEmail, validatePhone, validateEmailOrName } = require('../utils/validation.js')
 
 function commandHandler(command, args){
     try{
@@ -50,4 +50,4 @@ Examples:
 `);
 }
 
-export default { commandHandler }
+module.exports = { commandHandler }

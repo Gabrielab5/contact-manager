@@ -1,4 +1,4 @@
-const { readContactsFromFileSync, writeContactsToFileSync } = require('../utils/fileUtils');mmm
+const { readContactsFromFileSync, writeContactsToFileSync } = require('../utils/fileUtils.js');
 
 const CONTACTS_FILE = 'contacts.json';
 

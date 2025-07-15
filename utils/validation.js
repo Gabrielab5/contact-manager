@@ -25,7 +25,7 @@ function validateEmailOrName(input){
     throw new Error("✗ Error: Search contacts by name or email only. name or email aren't valid")
 }
 
-export default {
+module.exports = {
     validateName,
     validateEmail,
     validatePhone,
