@@ -5,7 +5,8 @@ function commandHandler(command, args){
     try{
         switch(command){
             case 'add': {
-                if (args[0] && args[1] && args[2]) contactService.addContact(validateName(args[0]), validateEmail(args[1]), validatePhone(args[2]))
+                if (args[0] && args[1] && args[2]) 
+                    contactService.addContact(validateName(args[0]), validateEmail(args[1]), validatePhone(args[2]))
                 else throw new Error('Missing arguments for add command \nUsage: node contacts.js add "name" "email" "phone"')
                 break
                 }
