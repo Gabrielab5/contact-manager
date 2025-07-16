@@ -3,7 +3,7 @@ const path = require('path');
 const {
   readContactsFromFileSync,
   writeContactsToFileSync
-} = require('../fileUtils');
+} = require('./fileUtils');
 
 const testFile = path.resolve('test-contacts.json');
 

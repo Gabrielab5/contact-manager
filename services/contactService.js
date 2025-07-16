@@ -42,7 +42,7 @@ function addContact(name, email, phone) {
 
 function deleteContact(email) {
   const contacts = loadContacts();
-  const index = contacts.findIndex((c) => c.email === email[0]);
+  const index = contacts.findIndex((c) => c.email === email);
 
   if (index === -1) {
     throw new Error(`No contact found with email: ${email}`);
