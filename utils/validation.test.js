@@ -1,5 +1,5 @@
-const validators = require('./validation')
-const { validateName, validateEmail, validatePhone, validateEmailOrName } = validators.default
+
+const { validateName, validateEmail, validatePhone, validateEmailOrName } = require('./validation')
 
 describe('Validation Utilities', () => {
     describe('validateName', () => {
@@ -17,7 +17,8 @@ describe('Validation Utilities', () => {
     describe('validateEmail', () => {
         it('should return the name if it has a valid format' , () => {
             const validEmail = 'test@test.com'
-            expect(() => validateEmail(validEmail)).toBe(validEmail)
+            expect(validateEmail(validEmail)).toBe(validEmail)
+
         })
 
         it('should throw an error for invalid email', () => {

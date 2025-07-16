@@ -1,8 +1,8 @@
 const { commandHandler } = require('./commandHandler.js')
-const { contactService } = require('./services/contactService.js')
-const { validateName, validateEmail, validatePhone, validateEmailOrPhone } = require('./utils/validation.js')
-jest.mock('./services/contactService.js');
-jest.mock('./utils/validation.js');
+const  contactService  = require('../services/contactService.js')
+const { validateName, validateEmail, validatePhone, validateEmailOrName } = require('../utils/validation.js')
+jest.mock('../services/contactService.js');
+jest.mock('../utils/validation.js');
 
 describe('commandHandler - tests', () => {
     let consoleLogSpy;
@@ -28,35 +28,42 @@ describe('commandHandler - tests', () => {
             expect(validateName).toHaveBeenCalledWith('John Doe');
             expect(validateEmail).toHaveBeenCalledWith('john@example.com');
             expect(validatePhone).toHaveBeenCalledWith('1234567890');
-            expect(contactService.add).toHaveBeenCalledWith('John Doe', 'john@example.com', '1234567890');
+            expect(contactService.addContact).toHaveBeenCalledWith('John Doe', 'john@example.com', '1234567890');
         });
 
         it('should log an error if arguments for "add" are missing', () => {
             commandHandler('add', ['John Doe']); 
 
             expect(console.log).toHaveBeenCalledWith("✗ Error:", expect.stringContaining('Missing arguments for add command'));
-            expect(contactService.add).not.toHaveBeenCalled();
+            expect(contactService.addContact).not.toHaveBeenCalled();
         });
     });
 
 
     describe('search command', () => {
-        it('should call contactService.search with a validated query', () => {
-            const query = 'john@example.com';
-            validateEmailOrPhone.mockReturnValue(query);
+        it('should call contactService.search with a validated email', () => {
+        const emailQuery = 'john@example.com';
+        validateEmailOrName.mockReturnValue(emailQuery);
+        commandHandler('search', emailQuery);
 
-            commandHandler('search', query);
+        expect(validateEmailOrName).toHaveBeenCalledWith(emailQuery);
+        expect(contactService.searchContact).toHaveBeenCalledWith(emailQuery);
+    });
 
-            expect(validateEmailOrPhone).toHaveBeenCalledWith(query);
-            expect(contactService.search).toHaveBeenCalledWith(query);
-        });
+    it('should call contactService.search with a validated name', () => {
+        const nameQuery = 'John Doe';
+        validateEmailOrName.mockReturnValue(nameQuery);
+        commandHandler('search', nameQuery);
+        expect(validateEmailOrName).toHaveBeenCalledWith(nameQuery);
+        expect(contactService.searchContact).toHaveBeenCalledWith(nameQuery);
+    });
 
-        it('should log an error if the query for "search" is missing', () => {
-            commandHandler('search', null);
+    it('should log an error if the query for "search" is missing', () => {
+        commandHandler('search', null);
 
-            expect(console.log).toHaveBeenCalledWith("✗ Error:", expect.stringContaining('Missing email/phone number for search command'));
-            expect(contactService.search).not.toHaveBeenCalled();
-        });
+        expect(console.log).toHaveBeenCalledWith("✗ Error:", expect.stringContaining('Missing email/phone number for search command'));
+        expect(contactService.searchContact).not.toHaveBeenCalled();
+    });
     });
 
 
@@ -68,21 +75,21 @@ describe('commandHandler - tests', () => {
             commandHandler('delete', email);
 
             expect(validateEmail).toHaveBeenCalledWith(email);
-            expect(contactService.delete).toHaveBeenCalledWith(email);
+            expect(contactService.deleteContact).toHaveBeenCalledWith(email);
         });
 
         it('should log an error if the email for "delete" is missing', () => {
             commandHandler('delete', undefined);
 
             expect(console.log).toHaveBeenCalledWith("✗ Error:", expect.stringContaining('Missing email for delete command'));
-            expect(contactService.delete).not.toHaveBeenCalled();
+            expect(contactService.deleteContact).not.toHaveBeenCalled();
         });
     });
 
 
     it('should call contactService.list for the "list" command', () => {
         commandHandler('list');
-        expect(contactService.list).toHaveBeenCalledTimes(1);
+        expect(contactService.listContacts).toHaveBeenCalledTimes(1);
     });
 
     it('should call console.log with help text for the "help" command', () => {
@@ -106,6 +113,6 @@ describe('commandHandler - tests', () => {
         commandHandler('add', ['Invalid-Name', 'email@test.com', '123']);
 
         expect(console.log).toHaveBeenCalledWith("✗ Error:", errorMessage);
-        expect(contactService.add).not.toHaveBeenCalled();
+        expect(contactService.addContact).not.toHaveBeenCalled();
     });
 });
